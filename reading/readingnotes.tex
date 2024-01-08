@@ -1,0 +1,43 @@
+\documentclass{article}
+
+\title{PHSCS 530: Computational Physics\\\large Reading Notes}
+\author{Logan Mathews}
+
+\begin{document}
+\maketitle
+\pagebreak
+\tableofcontents
+\pagebreak
+\section{Reading 1}
+\subsection{Sipser 0.1: Three Branches of Computation}
+\begin{description}
+    \item [Automata] Definitions and properties of computational mathematics models.
+    \begin{itemize}
+        \item Two models for example
+        \begin{description}
+            \item [finite automaton] text processing, compilers, hardware design
+            \item [context-free grammar] programming languages, AI
+        \end{description}
+    \end{itemize}
+    \item [Computability] Can you solve a problem with a computer?
+    \item [Complexity] If you can compute something, how hard/easy is the problem?
+    \begin{itemize}
+        \item Classification schemes for computational difficulty.
+        \item When a problem is computationally difficult, you can\dots
+        \begin{itemize}
+            \item alter it to be easier (transform, etc.)
+            \item settle for less accurate results (greater error tolerance, less precision, etc.)
+            \item use an algorithm that fast for most easy problems, but slower for harder things that you do occasionally (as opposed to having an algorithm that's faster at the hard stuff but slower at the usual easy problems)
+            \item use alternative methods (randomized, etc.)
+        \end{itemize}
+    \end{itemize}
+\end{description}
+\subsection{Mertens 1.1: Motivation}
+\begin{itemize}
+    \item Complexity is all about classifying problems according to the resources they will use to solve (hardware).
+    \item Tractable and intractable problems.
+    \item The tractability is defined by the worst posssible case- for instance, if you can solve a particular problem generally very easily but there are specific parameters for which it is very difficult, then the problem could be classified as intractable.
+    \item Statistical mechanics and other physical models can actually be useful in analyzing computational problems.
+    \item Quantum computing has the potential to revolutionize many of the currently intractable problems in classical computing.
+\end{itemize}
+\end{document}

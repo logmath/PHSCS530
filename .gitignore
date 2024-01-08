@@ -1,0 +1,17 @@
+*.pdf
+*.png
+*.svg
+*.eps
+*.aux
+*.fdb_latexmk
+*.idx
+*.log
+*.synctex
+*.fls
+*.ilg
+*.ind
+*.out
+*.synctex.gz
+*.bbl
+*.blg
+*.toc
