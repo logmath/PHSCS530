@@ -1,4 +1,7 @@
 \documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 
 \title{PHSCS 530: Computational Physics\\\large Reading Notes}
 \author{Logan Mathews}
@@ -13,16 +16,39 @@
 \begin{description}
     \item [Automata] Definitions and properties of computational mathematics models.
     \begin{itemize}
-        \item Two models for example
+        \item AKA State Machines
+        \item Automata theory deals with having a machine in some given state and how that state is advanced forward in time, usually in discrete steps.
+        \item We will build up automata theory to define a Turing machine.
+        \item Example models
         \begin{description}
             \item [finite automaton] text processing, compilers, hardware design
             \item [context-free grammar] programming languages, AI
+            \item [$\lambda$-calculus]
         \end{description}
     \end{itemize}
     \item [Computability] Can you solve a problem with a computer?
+    \begin{description}
+        \item [Gödel's First Incompleteness Theorem] No consistent system of axions whose theorems can be listed by an algoritm can prove all true statements about the arithmetic of natural numbers. This was, in large part, formed in the wake of Hilbert's second problem.
+        \item [Hilbert's Second Problem] Prove that the axioms of arithmetic are consistent.
+        \item [Halting Problem] There is no algorithm that can determine when a given computer program will finish/halt.
+    \end{description}
     \item [Complexity] If you can compute something, how hard/easy is the problem?
     \begin{itemize}
+        \item How many resources will it take to solve a computational problem. Resources could be time or memory.
         \item Classification schemes for computational difficulty.
+        \begin{itemize}
+            \item Big-O Notation
+            \item Given the space of all possible problems, we can divide the space into certain groups.
+            \begin{description}
+                \item [P] Easy problems. These problems can be solved in polynomial time. Example: matrix inversion, $O(N^3)$.
+                \item [NP] Problems for which candidate solutions can be checked in polynomial time. P is a subset of NP.
+                \item [NP-Complete] A subset of NP, but most likely doesn't include P problems, however, there is uncertainty as to whether some NP-Complete problems also belong in P. Examples:
+                \begin{itemize}
+                    \item  The traveling salesperson problem: You are a salesperson traveling to a number of destinations and you want to determine the shortest possible path to get between all destinations. This is not computable in polynomial time.
+                    \item kSat satisfiability problems
+                \end{itemize}
+            \end{description}
+        \end{itemize}
         \item When a problem is computationally difficult, you can\dots
         \begin{itemize}
             \item alter it to be easier (transform, etc.)
@@ -40,4 +66,47 @@
     \item Statistical mechanics and other physical models can actually be useful in analyzing computational problems.
     \item Quantum computing has the potential to revolutionize many of the currently intractable problems in classical computing.
 \end{itemize}
+\pagebreak
+
+\section{Reading 2}
+\subsection{Sipser 1.1: Finite Automata}
+\begin{itemize}
+    \item A finite automaton or finite state machine is the simplest computer model. They can model computers with limited memory well.
+    \item The probabilistic equivalent of a finite automaton is a Markov chain.
+    \item Formal definition of a finite automaton: A \textbf{\textit{finite automaton}} is a 5-tuple $(Q,\Sigma,\delta,q_0,F)$, where 
+    \begin{enumerate}
+        \item $Q$ is a finite set called the \textbf{\textit{states}},
+        \item $\Sigma$ is a finite set called the \textbf{\textit{alphabet}},
+        \item $\delta: Q \times \Sigma \Rightarrow Q$ is the \textbf{\textit{transition function}},
+        \item $q_0 \in Q$ is the \textbf{\textit{start state}}, and
+        \item $F \subseteq Q$ is the \textbf{\textit{set of accept or final states}}.
+    \end{enumerate}
+    \item Alternatively, stated in plain language, we can say that the formal definition of a finite automaton is that it has (1) set of states, (2) an input alphabet, (3) rules for moving between states based on the input alphabet, (4) a starting state, and (5) accept state(s).
+    \item If $A$ is the set of all strings that the machine $M$ accepts, then $A$ is the \textbf{\textit{language}} of machine $M$ and hence $L(M) = A$. We say that $M$ \textbf{\textit{recognizes}} $A$ because it \textbf{\textit{accepts}} all the strings in $A$. Languages are \textit{recongized} and strings are \textit{accepted}.
+    \item A language is \textbf{\textit{regular}} if some finite automaton recongizes it.
+    \item There are three operations on languages, called \textbf{\textit{regular operations}}, whose definitions are formally given as: Let $A$ and $B$ be languages. Then, there exists three \textbf{\textit{regular operations}}
+    \begin{description}
+        \item [union] {$A \cup B = \{x \,|\, x \in A \textrm{ or } x \in B\}$}
+        \item [concatenation] {$A \circ B = \{xy \,|\, x \in A \textrm{ and } y \in B\}$}
+        \item [star] {$A^* = \{x_1x_2\dots x_k \,|\, k \geq 0 \textrm{ and each } x_i \in A\}$}
+    \end{description}
+\end{itemize}
+
+\subsection{Sipser 1.2: Nondetermenism}
+\begin{enumerate}
+    \item A nondeterministic finite automaton (NFA) is like a discrete finite automaton (DFA) in all ways except (1) there may be multiple states that can be transitioned to ("branching") and the empty string can also be input.
+    \item An NFA always has a DFA equivalent, however, the DFA equivalents are often far more complex.
+    \item The formal definition is given as: A \textbf{\textit{ nondetermenistic finite automaton}} is a 5-tuple $(Q,\Sigma,\delta,q_0,F)$, where 
+    \begin{enumerate}
+        \item $Q$ is a finite set called the \textbf{\textit{states}},
+        \item $\Sigma$ is a finite set called the \textbf{\textit{alphabet}},
+        \item $\delta: Q \times \Sigma_\epsilon \Rightarrow \mathcal{P}(Q)$ is the \textbf{\textit{transition function}},
+        \item $q_0 \in Q$ is the \textbf{\textit{start state}}, and
+        \item $F \subseteq Q$ is the \textbf{\textit{set of accept or final states}}.
+    \end{enumerate}
+    \item Two machines are said to be \textbf{\textit{equivalent}} if they recognize the same language.
+    \item \item A language is regular \textit{if and only if} some NFA recongnizes it.
+\end{enumerate}
+
+
 \end{document}
