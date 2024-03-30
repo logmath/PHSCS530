@@ -93,10 +93,10 @@
 \end{itemize}
 
 \subsection{Sipser 1.2: Nondetermenism}
-\begin{enumerate}
+\begin{itemize}
     \item A nondeterministic finite automaton (NFA) is like a discrete finite automaton (DFA) in all ways except (1) there may be multiple states that can be transitioned to ("branching") and the empty string can also be input.
     \item An NFA always has a DFA equivalent, however, the DFA equivalents are often far more complex.
-    \item The formal definition is given as: A \textbf{\textit{ nondetermenistic finite automaton}} is a 5-tuple $(Q,\Sigma,\delta,q_0,F)$, where 
+    \item The formal definition is given as: A \textbf{\textit{nondetermenistic finite automaton}} is a 5-tuple $(Q,\Sigma,\delta,q_0,F)$, where 
     \begin{enumerate}
         \item $Q$ is a finite set called the \textbf{\textit{states}},
         \item $\Sigma$ is a finite set called the \textbf{\textit{alphabet}},
@@ -106,7 +106,106 @@
     \end{enumerate}
     \item Two machines are said to be \textbf{\textit{equivalent}} if they recognize the same language.
     \item A language is regular \textit{if and only if} some NFA recongnizes it.
-\end{enumerate}
+\end{itemize}
+
+\section{Reading 3}
+\subsection{Sipser 2.2: Pushdown Automata}
+\begin{itemize}
+    \item Pushdown automata (PDA) are similar to NFAs but have an extra component called a stack.
+    \item A PDA can write symbols to a stack and read them back later. Writing a symbol "pushes down" all the other symbols on the stack.
+    \item Writing a symbol onto the top of the stack is called \textbf{\textit{pushing}}.
+    \item Removing a symbol from the top of the stack is called \textbf{\textit{popping}}.
+    \item For a stack, access for pushing and popping is only done on the top. LIFO (last in, first out) storage.
+    \item A stack can hold an unlimited amount of information.
+    \item The formal definition is given as: A \textbf{\textit{pushdown automaton}} is a 6-tuple $(Q,\Sigma,\Gamma,\delta,q_0,F)$, 
+    \begin{enumerate}
+        \item $Q$ is a finite set called the \textbf{\textit{states}},
+        \item $\Sigma$ is a finite set called the \textbf{\textit{input alphabet}},
+        \item $\Gamma$ is a finite set called the \textbf{\textit{stack alphabet}},
+        \item $\delta: Q \times \Sigma_\epsilon \times \Gamma_\epsilon \Rightarrow \mathcal{P}(Q\times\Gamma_\epsilon)$ is the \textbf{\textit{transition function}},
+        \item $q_0 \in Q$ is the \textbf{\textit{start state}}, and
+        \item $F \subseteq Q$ is the \textbf{\textit{set of accept or final states}}.
+    \end{enumerate}
+    
+\end{itemize}
+
+\section{Reading 4}
+\subsection{Sipser 3.1: Turing Machines}
+\begin{itemize}
+    \item A Turing machine is similar to a finite automaton, but with unlimited and unrestricted memory.
+    \item It is a good model for the common computer- it can do everything a general purpose computer can.
+    \item It has an inifite tape as its memory, and a head that can read and write symbols anywhere on the tape.
+    \item At the beginning of a computation, the tape contains only the input string and is blank everywhere else. It can store and read information off the tape. It will compute until it reaches an accept or reject state, otherwise it will never halt.
+    \item The differences between a Turing machine and finite automaton can be given as:
+    \begin{enumerate}
+        \item A Turing machine can both write on the tape and read from it.
+        \item The R/W head can move both to the left and right.
+        \item The tape is infinite.
+        \item The special states for rejecting and accepting take effect immediately.
+    \end{enumerate}
+    \item The formal definition is given as: A \textbf{\textit{Turing machine}} is a 7-tuple $(Q,\Sigma,\Gamma,\delta,q_0,q_\textrm{accept},q_\textrm{reject})$, where 
+    \begin{enumerate}
+        \item $Q$ is a finite set called the \textbf{\textit{states}},
+        \item $\Sigma$ is a finite set called the \textbf{\textit{input alphabet}} which does not include the \textbf{\textit{blank symbol}} \textvisiblespace,
+        \item $\Gamma$ is a finite set called the \textbf{\textit{tape alphabet}}, where \textvisiblespace$\in\Gamma$ and $\sigma\subseteq\Gamma$,
+        \item $\delta: Q \times \Gamma \Rightarrow Q \times \Gamma \times \{L,R\}$ is the \textbf{\textit{transition function}},
+        \item $q_0 \in Q$ is the \textbf{\textit{start state}}, and
+        \item $q_\textrm{accept}$ is the \textbf{\textit{accept state}}, and
+        \item $q_\textrm{reject}$ is the \textbf{\textit{reject state}}, where $q_\textrm{reject}\neq q_\textrm{accept}$.
+    \end{enumerate}
+    \item The set of the current state, current tape contents, and current head location of a Turing machine is called the \textbf{\textit{configuration}}.
+    \item The \textbf{\textit{start configuration}} of $M$ on input $w$ is $q_0 w$. 
+\end{itemize}
+
+\section{Reading 5}
+\subsection{Sipser 3.3: The Definition of Algorithm}
+\begin{itemize}
+    \item An algorithm is a collection of simple instructions for carrying out a task.
+    \item An algorithm is some set of instructions that can be accomplished on a Turing machine. In essence, an algorithm is a Turing machine.
+    \item \textbf{\textit{Church-Turing Thesis:}} If there is a Turing machine that accomplishes an algorithm, the set of states and configuration of the Turing machine \textit{is} the algorithm.
+    \item Why is it a thesis?
+    \begin{itemize}
+        \item Hasn't been proven.
+        \item How it ought to be defined is not determined yet.
+        \item It's conjecture that is too vague to be given a formal definition but is still potentially useful.
+    \end{itemize}
+    \item A function $f$ is \textbf{\textit{computable}} if there is a Turing machine $M$, such that:
+    \begin{description}
+        \item[Initial configuration] $q_0 w$
+        \item[Final configuration] $q_f f(w)$  
+    \end{description}
+    \item \textbf{Halting Problem}
+    \begin{itemize}
+        \item Construct a proof by contradiction.
+        \item Let us assume there is a machine $M$ that decides the set.
+        \item Let $H$ be a machine that takes the input, evaluates the output of $M$, then does (decides) the opposite.
+        \item 
+    \end{itemize}
+\end{itemize}
+
+\section{Reading 6}
+\subsection{Sipser 7.1: Measuring Complexity}
+\begin{itemize}
+    \item Running time of an algorithm is a function of the length of the input string.
+    \item \textbf{\textit{Worst-case analysis}} considers the longest running time of all inputs of a given length.
+    \item \textbf{\textit{Average-case analysis}} considers the average of all running times of inputs of a particular length.
+    \item Let $M$ be a deterministic Turing machine that halts on all inputs. The \textbf{\textit{running time}} or  \textbf{\textit{time complexity}} of $M$ is the function $f:\mathcal{N}\longrightarrow\mathcal{N}$, where $f(n)$ is the maximum number of steps that $M$ uses on any input of length $n$. 
+    \item The running time is usually pretty complex, so we estimate it. \textbf{\textit{Asymptotic analysis}} is based on the running time of algorithms with large inputs. In asymptotic analysis, only the highest order term, with coefficients dropped, is regarded. This results in \textbf{\textit{asymptotic notation}} or \textbf{\textit{big-O notation}}.
+    \item Let $f$ and $g$ be functions $f,g:\mathcal{N}\longrightarrow\mathcal{R}^+$. Say that $f(n)=O(g(n))$ if positive integers $c$ and $n_0$ exist such that for every integer $n\geq n_0$, $f(n)\leq c g(n)$. When $f(n)=O(g(n))$, we say that $g(n)$ is an \textbf{\textit{asymptotic upper bound}} for $f(n)$.
+    \item Big-O notation says taht a function is asymptotically no larger than another, but small-o notation says that a function is asymptotically less than another.
+    \item Let $f$ and $g$ be functions $f,g:\mathcal{N}\longrightarrow\mathcal{R}^+$. Say that $f(n)=o(g(n))$ if $\lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}=0$. In other words, $f(n)=o(g(n))$ means that, for any real number $c>0$, a number $n_0$ exists, where $f(n)<cg(n)\,\forall n\geq n_o$.
+    \item Let $t:\mathcal{N}\longrightarrow\mathcal{R}^+$ be a function. Define the \textbf{\textit{time complexity class}}, $\textrm{TIME}(t(n))$, to be the collection of all languages that are decidable by an $O(t(n))$ time Turing machine.
+\end{itemize}
+\subsection{Sipser 7.2: The Class P}
+\begin{itemize}
+    \item Polynomial differences in running time are considered small, whereas exponential differences are considered large.
+    \item Polynomial time algorithms are fast enough most of the time, but exponential time algorithms are rarely useful.
+    \item Brute-force searches are often exponential.
+    \item All reasonalble computational models are polynomially equivalent, i.e. any one of them can simulate another with only a polynimial increase in running time.
+    \item $\textrm{P}$ is the class of languages that are decidable in polynomial time on a deterministic single-tape Turing machine. In other words, $\textrm{P}=\bigcup_k \textrm{TIME}(n^k)$.
+    \item 
+\end{itemize}
+\subsection{Mertens 1.2-2.1}
 
 
 \end{document}
